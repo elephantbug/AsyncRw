@@ -146,21 +146,19 @@ void MainTask::run()
 
 	ChunkQueue chunk_queue;
 	
-	SequentialProcessor seq;
-	
 	Provider producer(chunk_queue);
-	//Comsumer<FakeProcessor> comsumer1(chunk_queue);
-	Comsumer<SequentialProcessor> comsumer1(chunk_queue, seq);
+	Comsumer<SequentialProcessor> comsumer1(chunk_queue);
+	Comsumer<SequentialProcessor> comsumer2(chunk_queue);
 	Comsumer<OutputProcessor> comsumer3(chunk_queue);
 
 	producer.start();
 	comsumer1.start();
-	//comsumer2.start();
+	comsumer2.start();
 	comsumer3.start();
 
 	producer.wait();
 	comsumer1.wait();
-	//comsumer2.wait();
+	comsumer2.wait();
 	comsumer3.wait();
 
 	emit finished();

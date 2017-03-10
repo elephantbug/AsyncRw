@@ -61,9 +61,6 @@ private:
 	//Chunks being processed
 	ChunkList usedChunks;
 
-	//Chunks that are not read yet
-	ChunkList pendingChunks;
-
 	//The nuber of allocated chunks, but not the count of elements in usedChunks list.
 	size_t allocatedChunkCount = 0;
 

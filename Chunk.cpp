@@ -24,17 +24,55 @@ Chunk * ChunkQueue::ReadChunk(Chunk * p_prev_chunk)
 	{
 		std::unique_lock<std::mutex> lock(queueMutex);
 
+		ChunkList::iterator i_prev = usedChunks.end();
+		
 		if (p_prev_chunk != nullptr)
 		{
-			p_chunk = *(++ChunkList::iterator(p_prev_chunk));
+			i_prev = ChunkList::iterator(p_prev_chunk);
+		}
 
+		ChunkList::iterator i_cur = i_prev;
+		++i_cur;
+
+		//Check if there are available chunks, if not get a chunk from pending list.
+		while (i_cur == usedChunks.end() && !writeCompleted)
+		{
+			//allocatedChunkCount can differ from zero at this point, but the list is still empty
+
+			chunkAdded.wait(lock);
+
+			i_cur = i_prev;
+			++i_cur;
+		}
+
+		if (i_cur != usedChunks.end())
+		{
+			p_chunk = *i_cur;
+			
+			assert(p_chunk->readCount < ReaderCount);
+
+			assert(p_chunk->included());
+		}
+		else
+		{
+			assert(writeCompleted);
+			
+			p_chunk = nullptr;
+		}
+
+		//remove p_prev_chunk if it is not used anymore
+		if (p_prev_chunk != nullptr)
+		{
 			++p_prev_chunk->readCount;
 
 			assert(p_prev_chunk->readCount <= ReaderCount);
 
-			//all the readers unlocked this chunk
 			if (p_prev_chunk->readCount == ReaderCount)
 			{
+				//we are deleting the first element
+				//assert(++ChunkList::reverse_iterator(p_prev_chunk) == usedChunks.rend());
+				//assert(p_prev_chunk == usedChunks.front());
+
 				p_prev_chunk->exclude();
 
 				freeChunks.push_back(p_prev_chunk);
@@ -46,34 +84,9 @@ Chunk * ChunkQueue::ReadChunk(Chunk * p_prev_chunk)
 				std::ostringstream out;
 				out << "chunk removed " << p_prev_chunk->Buffer[0] << std::endl;
 				std::cout << out.str();
-			}
-		}
-		else
-		{
-			p_chunk = usedChunks.front();
-		}
 
-		//Check if there are available chunks, if not get a chunk from pending list.
-		if (ChunkList::iterator(p_chunk) == usedChunks.end())
-		{
-			p_chunk = nullptr;
-			
-			while (pendingChunks.empty() && !writeCompleted)
-			{
-				//allocatedChunkCount can differ from zero at this point, but the list is still empty
-
-				chunkAdded.wait(lock);
-			}
-
-			if (!pendingChunks.empty())
-			{
-				p_chunk = pendingChunks.pop_front();
-				
-				assert(p_chunk->readCount < ReaderCount);
-
-				assert(!p_chunk->included());
-
-				usedChunks.push_back(p_chunk);
+				//p_chunk became first
+				//assert(p_chunk == usedChunks.front());
 			}
 		}
 	}
@@ -128,7 +141,7 @@ void ChunkQueue::PushChunk(Chunk * p_chunk)
 	{
 		std::unique_lock<std::mutex> lock(queueMutex);
 
-		pendingChunks.push_back(p_chunk);
+		usedChunks.push_back(p_chunk);
 
 		std::ostringstream out;
 		out << "chunk added " << p_chunk->Buffer[0] << std::endl;
