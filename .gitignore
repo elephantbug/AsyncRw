@@ -188,10 +188,10 @@ FakesAssemblies/
 GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
-/src/LinesGame/LinesGame/LinesGame/BundleArtifacts
-/src/LinesGame/LinesGame/LinesGame/Generated Files
-/src/LinesGame/LinesGame.VC.db
-/src/LinesGame/packages
-/src/LinesGame/LinesGame/LinesGame/_pkginfo.txt
-/src/LinesGame/LinesGame/LinesGame/*.appx
-/src/LinesGame/build-*
+/BundleArtifacts
+/Generated Files
+/*.VC.db
+/packages
+/_pkginfo.txt
+/*.appx
+/build-*
