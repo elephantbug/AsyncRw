@@ -139,10 +139,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Chunk.cpp" />
+    <ClCompile Include="Consumer.cpp" />
+    <ClCompile Include="Provider.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Chunk.h" />
+    <ClInclude Include="Consumer.h" />
+    <ClInclude Include="Provider.h" />
     <ClInclude Include="Awl\QuickList.h" />
     <ClInclude Include="Awl\SingleList.h" />
   </ItemGroup>
