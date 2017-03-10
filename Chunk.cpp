@@ -81,9 +81,9 @@ Chunk * ChunkQueue::ReadChunk(Chunk * p_prev_chunk)
 
 				chunk_removed = true;
 
-				std::ostringstream out;
-				out << "chunk removed " << p_prev_chunk->Buffer[0] << std::endl;
-				std::cout << out.str();
+				//std::ostringstream out;
+				//out << "chunk removed " << p_prev_chunk->Buffer[0] << std::endl;
+				//std::cout << out.str();
 
 				//p_chunk became first
 				//assert(p_chunk == usedChunks.front());
@@ -97,11 +97,11 @@ Chunk * ChunkQueue::ReadChunk(Chunk * p_prev_chunk)
 		chunkRemoved.notify_one();
 	}
 
-	{
-		std::ostringstream out;
-		out << "chunk returned " << (p_chunk != nullptr ? p_chunk->Buffer[0] : -1) << std::endl;
-		std::cout << out.str();
-	}
+	//{
+	//	std::ostringstream out;
+	//	out << "chunk returned " << (p_chunk != nullptr ? p_chunk->Buffer[0] : -1) << std::endl;
+	//	std::cout << out.str();
+	//}
 
 	return p_chunk;
 }
@@ -143,9 +143,9 @@ void ChunkQueue::PushChunk(Chunk * p_chunk)
 
 		usedChunks.push_back(p_chunk);
 
-		std::ostringstream out;
-		out << "chunk added " << p_chunk->Buffer[0] << std::endl;
-		std::cout << out.str();
+		//std::ostringstream out;
+		//out << "chunk added " << p_chunk->Buffer[0] << std::endl;
+		//std::cout << out.str();
 	}
 
 	chunkAdded.notify_all();
@@ -158,7 +158,7 @@ void ChunkQueue::Complete()
 
 		writeCompleted = true;
 
-		std::cout << "completed" << std::endl;
+		//std::cout << "completed" << std::endl;
 	}
 
 	chunkAdded.notify_all();

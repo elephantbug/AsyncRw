@@ -9,7 +9,7 @@ class Chunk : public awl::quick_link<Chunk>
 {
 public:
 
-	static const size_t BufferSize = 10;
+	static const size_t BufferSize = 1000;
 	
 	//the number of times the Chunk was read
 	int readCount = 0;
@@ -52,7 +52,7 @@ public:
 private:
 
 	size_t ReaderCount = 0;
-	static const size_t MaxNumberOfChunks = 2;
+	static const size_t MaxNumberOfChunks = 10;
 
 	std::mutex queueMutex;
 	std::condition_variable chunkAdded;

@@ -29,7 +29,7 @@ void Provider::run()
 
 	size_t buf_pos = 0;
 	
-	for (size_t i = 0; i < 100; ++i)
+	for (size_t i = 0; i < 10000; ++i)
 	{
 		if (buf_pos == Chunk::BufferSize)
 		{
