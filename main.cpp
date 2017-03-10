@@ -142,8 +142,6 @@ signals:
 
 void MainTask::run()
 {
-	// Do processing here
-
 	ChunkQueue chunk_queue;
 	
 	Provider producer(chunk_queue);
