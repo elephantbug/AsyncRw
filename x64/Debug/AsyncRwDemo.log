@@ -1,7 +1,0 @@
-﻿C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppCommon.targets(171,5): warning MSB8017: A circular dependency has been detected while executing custom build commands for item "GeneratedFiles\Debug\main.moc". This may cause incremental build to work incorrectly.
-  Generate moc_predefs.h
-  MOC main.cpp
-  Moc'ing main.cpp...
-  main.cpp
-  AsyncRwDemo.vcxproj -> D:\Repos\AsyncRw\debug\AsyncRwDemo.exe
-  AsyncRwDemo.vcxproj -> debug\AsyncRwDemo.pdb (Full PDB)
