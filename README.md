@@ -8,7 +8,7 @@ On Windows use VS2015 + QtPackage and/or QT Designer. To signal the end of file 
 
 The sample output is:
 
-AsyncRwDemo.exe \< ../Input/input1M.txt
+AsyncRwDemo.exe < ../Input/input1M.txt
 Addition result: 1783293664
 Subtraction result: -1783293664
 Xor result: 0
