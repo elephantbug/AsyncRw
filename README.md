@@ -13,3 +13,5 @@ AsyncRwDemo.exe < ../Input/input1M.txt
 Addition result: 1783293664
 Subtraction result: -1783293664
 Xor result: 0
+
+With the empty input the application outputs zeros.
