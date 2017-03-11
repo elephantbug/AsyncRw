@@ -30,10 +30,15 @@ void MainTask::run()
 {
 	ChunkQueue chunk_queue;
 	
-	Provider producer(chunk_queue);
-	Comsumer<SequentialProcessor> comsumer1(chunk_queue);
-	Comsumer<SequentialProcessor> comsumer2(chunk_queue);
-	Comsumer<OutputProcessor> comsumer3(chunk_queue);
+	//RandomProvider producer(chunk_queue);
+	//Comsumer<SequentialProcessor> comsumer1(chunk_queue);
+	//Comsumer<SequentialProcessor> comsumer2(chunk_queue);
+	//Comsumer<OutputProcessor> comsumer3(chunk_queue);
+
+	FileProvider producer(chunk_queue);
+	Comsumer<AdditionProcessor> comsumer1(chunk_queue);
+	Comsumer<SubtractionProcessor> comsumer2(chunk_queue);
+	Comsumer<XorProcessor> comsumer3(chunk_queue);
 
 	producer.start();
 	comsumer1.start();
@@ -44,6 +49,10 @@ void MainTask::run()
 	comsumer1.wait();
 	comsumer2.wait();
 	comsumer3.wait();
+
+	std::cout << "Addition result: " << comsumer1.GetProcessor().Result << std::endl;
+	std::cout << "Subtraction result: " << comsumer2.GetProcessor().Result << std::endl;
+	std::cout << "Xor result: " << comsumer3.GetProcessor().Result << std::endl;
 
 	emit finished();
 }

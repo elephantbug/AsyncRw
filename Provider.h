@@ -4,11 +4,11 @@
 
 #include "Chunk.h"
 
-class Provider : public QThread
+class RandomProvider : public QThread
 {
 public:
 
-    Provider(ChunkQueue & chunk_queue) : QThread(nullptr), chunkQueue(chunk_queue)
+    RandomProvider(ChunkQueue & chunk_queue) : QThread(nullptr), chunkQueue(chunk_queue)
     {
     }
 
@@ -17,4 +17,19 @@ public:
 private:
 
     ChunkQueue & chunkQueue;
+};
+
+class FileProvider : public QThread
+{
+public:
+
+	FileProvider(ChunkQueue & chunk_queue) : QThread(nullptr), chunkQueue(chunk_queue)
+	{
+	}
+
+	void run();
+
+private:
+
+	ChunkQueue & chunkQueue;
 };

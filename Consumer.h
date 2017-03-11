@@ -28,6 +28,11 @@ public:
         }
     }
 
+	const Processor & GetProcessor() const
+	{
+		return Proc;
+	}
+
 private:
 
     ChunkQueue & chunkQueue;
@@ -70,4 +75,53 @@ public:
 private:
 
     int Cur = 0;
+};
+
+class AdditionProcessor
+{
+public:
+
+	void Process(int n)
+	{
+		Result += n;
+	}
+
+	int Result = 0;
+};
+
+class SubtractionProcessor
+{
+public:
+
+	void Process(int n)
+	{
+		if (first)
+		{
+			Result = n;
+
+			first = false;
+		}
+		else
+		{
+			Result -= n;
+		}
+	}
+
+	int Result = 0;
+
+private:
+
+	bool first = true;
+};
+
+class XorProcessor
+{
+public:
+
+	void Process(int n)
+	{
+		Result ^= n;
+	}
+
+	int Result = 0;
 };

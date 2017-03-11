@@ -5,7 +5,7 @@
 
 #include "Provider.h"
 
-void Provider::run()
+void RandomProvider::run()
 {
     Chunk * p_chunk = nullptr;
 
@@ -36,4 +36,39 @@ void Provider::run()
     chunkQueue.PushChunk(p_chunk);
 
     chunkQueue.Complete();
+}
+
+void FileProvider::run()
+{
+	Chunk * p_chunk = nullptr;
+
+	size_t buf_pos = 0;
+
+	int n;
+
+	while (std::cin >> n)
+	{
+		if (buf_pos == Chunk::BufferSize)
+		{
+			chunkQueue.PushChunk(p_chunk);
+
+			p_chunk = nullptr;
+		}
+
+		if (p_chunk == nullptr)
+		{
+			p_chunk = chunkQueue.AllocateChunk();
+
+			buf_pos = 0;
+		}
+
+		p_chunk->Buffer[buf_pos++] = n;
+
+		p_chunk->Length = buf_pos;
+	}
+	
+	//push the last incomplete buffer
+	chunkQueue.PushChunk(p_chunk);
+
+	chunkQueue.Complete();
 }
