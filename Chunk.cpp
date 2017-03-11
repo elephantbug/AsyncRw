@@ -49,7 +49,7 @@ Chunk * ChunkQueue::ReadChunk(Chunk * p_prev_chunk)
 		{
 			p_chunk = *i_cur;
 			
-			assert(p_chunk->readCount < ReaderCount);
+            assert(p_chunk->readCount < (int)ReaderCount);
 
 			assert(p_chunk->included());
 		}
@@ -65,7 +65,7 @@ Chunk * ChunkQueue::ReadChunk(Chunk * p_prev_chunk)
 		{
 			++p_prev_chunk->readCount;
 
-			assert(p_prev_chunk->readCount <= ReaderCount);
+            assert(p_prev_chunk->readCount <= (int)ReaderCount);
 
 			if (p_prev_chunk->readCount == ReaderCount)
 			{

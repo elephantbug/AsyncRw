@@ -2,6 +2,7 @@
 
 #include <QThread>
 #include <assert.h>
+#include <vector>
 
 #include "Chunk.h"
 
@@ -10,7 +11,7 @@ class Comsumer : public QThread
 {
 public:
 
-    Comsumer(ChunkQueue & chunk_queue, Processor & proc = Processor()) : QThread(nullptr), chunkQueue(chunk_queue), Proc(proc)
+    Comsumer(ChunkQueue & chunk_queue) : QThread(nullptr), chunkQueue(chunk_queue)
     {
         chunk_queue.AttachReader();
     }
@@ -37,7 +38,8 @@ private:
 
     ChunkQueue & chunkQueue;
 
-    Processor & Proc;
+    //default constructable
+	Processor Proc;
 };
 
 //does nothing
@@ -70,6 +72,7 @@ public:
     void Process(int n)
     {
         assert(n == Cur++);
+        n;
     }
 
 private:
