@@ -67,7 +67,7 @@ Chunk * ChunkQueue::ReadChunk(Chunk * p_prev_chunk)
 
             assert(p_prev_chunk->readCount <= (int)ReaderCount);
 
-			if (p_prev_chunk->readCount == ReaderCount)
+            if (p_prev_chunk->readCount == (int)ReaderCount)
 			{
 				//we are deleting the first element
 				//assert(++ChunkList::reverse_iterator(p_prev_chunk) == usedChunks.rend());

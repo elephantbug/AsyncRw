@@ -42,16 +42,6 @@ private:
 	Processor Proc;
 };
 
-//does nothing
-class FakeProcessor
-{
-public:
-
-    void Process(int)
-    {
-    }
-};
-
 //prints the numbers to std out
 class OutputProcessor
 {
@@ -65,20 +55,20 @@ public:
     }
 };
 
-class SequentialProcessor
-{
-public:
-
-    void Process(int n)
-    {
-        assert(n == Cur++);
-        n;
-    }
-
-private:
-
-    int Cur = 0;
-};
+//class SequentialProcessor
+//{
+//public:
+//
+//    void Process(int n)
+//    {
+//        assert(n == Cur++);
+//        n;
+//    }
+//
+//private:
+//
+//    int Cur = 0;
+//};
 
 class AdditionProcessor
 {
