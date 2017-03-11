@@ -68,7 +68,10 @@ void FileProvider::run()
 	}
 	
 	//push the last incomplete buffer
-	chunkQueue.PushChunk(p_chunk);
+	if (p_chunk != nullptr)
+	{
+		chunkQueue.PushChunk(p_chunk);
+	}
 
 	chunkQueue.Complete();
 }
