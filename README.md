@@ -18,4 +18,4 @@ With the empty input the application outputs zeros.
 
 How it works:
 
-Provider thread reads the input by chunks and puts the read chunks into the queue. Consumer threads iterate over the read chunks in the queue and mark them as processed. The chunks processed by all the consumer thread are deleted from the queue. The maximum length of the queue and the size of the chunk are defined in C++ as constants, that are not optimized and used only for demonstration purposes.
+Provider thread reads the input by chunks and puts the read chunks into the queue. Consumer threads iterate over the read chunks in the queue and mark them as processed. The chunks processed by all the consumer threads are deleted from the queue. The maximum length of the queue and the size of the chunk are defined in C++ as constants, that are not optimized and used only for demonstration purposes.
